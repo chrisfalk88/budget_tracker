@@ -1,6 +1,6 @@
 //add DB.js --> week 17 
-//manifest.json /manifest.webmanfest --?> weel 18 
-//service-worker.js --> weel 18.13
+//manifest.json /manifest.webmanfest --?> weel 18 DONE (i think)
+//service-worker.js --> weel 18.13 DONE (i think)
 // link them into index.html 
 // register service worker 
 
