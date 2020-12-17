@@ -1,32 +1,31 @@
+
 const CACHE_NAME = "static-cache-v2";
 const DATA_CACHE_NAME = "data-cache-v1";
-const FILES_TO_CACHE = [
-  "/",
-  "/index.html",
-  "/favicon.ico",
-  "/manifest.webmanifest",
-  //removed assetts/images from 18.13 and just added what was in icons folder and css/js files 
-  "index.js",
-  "styles.css",
-  "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png"
 
-];
+const iconSizes = ["192", "512"];
+const iconFiles = iconSizes.map(
+  (size) => `/icons/icon-${size}x${size}.png`
+);
+
+const staticFilesToPreCache = [
+  "/",
+  "/index.js",
+  "/manifest.webmanifest",
+  "/styles.css",
+  "/index.html",
+  "/db.js"
+].concat(iconFiles);
+
 
 // install
-self.addEventListener("install", function (evt) {
-  // pre cache image data
+self.addEventListener("install", function(evt) {
   evt.waitUntil(
-    caches.open(DATA_CACHE_NAME).then((cache) => cache.add("/api/images"))
-  );
-    
-  // pre cache all static assets
-  evt.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE))
+    caches.open(CACHE_NAME).then(cache => {
+      console.log("Your files were pre-cached successfully!");
+      return cache.addAll(staticFilesToPreCache);
+    })
   );
 
-  // tell the browser to activate this service worker immediately once it
-  // has finished installing
   self.skipWaiting();
 });
 
